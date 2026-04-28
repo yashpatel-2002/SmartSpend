@@ -1,0 +1,301 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-base-200 via-base-100 to-base-200 min-h-screen antialiased;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-base-200 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--p) / 0.2);
+    border-radius: 9999px;
+    transition: background-color 0.3s;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--p) / 0.4);
+  }
+}
+
+@layer components {
+  /* Glass morphism effects */
+  .glass {
+    @apply backdrop-blur-lg border;
+    background-color: hsl(var(--b1) / 0.3);
+    border-color: hsl(var(--b3) / 0.3);
+  }
+  
+  .dark .glass {
+    background-color: hsl(var(--b1) / 0.2);
+    border-color: hsl(var(--b3) / 0.2);
+  }
+  
+  .glass-card {
+    @apply glass shadow-xl hover:shadow-2xl transition-all duration-300;
+  }
+  
+  /* Card animations */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  /* Gradient borders */
+  .gradient-border {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--b1)), hsl(var(--b1))) padding-box,
+                linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899) border-box;
+  }
+  
+  .gradient-border-primary {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--b1)), hsl(var(--b1))) padding-box,
+                linear-gradient(135deg, #6366f1, #4f46e5) border-box;
+  }
+  
+  .gradient-border-success {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--b1)), hsl(var(--b1))) padding-box,
+                linear-gradient(135deg, #10b981, #059669) border-box;
+  }
+  
+  .gradient-border-warning {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--b1)), hsl(var(--b1))) padding-box,
+                linear-gradient(135deg, #f59e0b, #d97706) border-box;
+  }
+  
+  .gradient-border-error {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(hsl(var(--b1)), hsl(var(--b1))) padding-box,
+                linear-gradient(135deg, #ef4444, #dc2626) border-box;
+  }
+  
+  /* Animated backgrounds */
+  .animated-gradient {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] animate-gradient;
+  }
+  
+  /* Stats cards */
+  .stat-card {
+    @apply bg-base-100 rounded-2xl shadow-lg p-6 card-hover border border-base-200 border-opacity-50;
+  }
+  
+  .stat-value-large {
+    @apply text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  /* Modern buttons */
+  .btn-modern {
+    @apply relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98];
+  }
+  
+  .btn-modern::after {
+    content: '';
+    @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+  }
+  
+  .btn-modern:hover::after {
+    @apply opacity-20;
+  }
+  
+  /* Input styles */
+  .input-modern {
+    @apply border-2 border-base-300 focus:border-primary focus:ring-4 focus:ring-primary rounded-xl;
+    background-color: hsl(var(--b2) / 0.5);
+    transition: all 0.3s;
+  }
+  
+  .input-modern:focus {
+    background-color: hsl(var(--b1));
+  }
+  
+  /* Loading animations */
+  .loading-dots {
+    @apply flex space-x-2;
+  }
+  
+  .loading-dots div {
+    @apply w-3 h-3 bg-primary rounded-full animate-bounce;
+  }
+  
+  .loading-dots div:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .loading-dots div:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  /* Chart containers */
+  .chart-container {
+    @apply bg-base-100 rounded-2xl shadow-lg p-6 border border-base-200 border-opacity-50;
+  }
+  
+  /* Page headers */
+  .page-header {
+    @apply mb-8 animate-fade-in;
+  }
+  
+  .page-title {
+    @apply text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+  
+  /* FIXED: Removed the problematic line */
+  .page-subtitle {
+    @apply text-base-content mt-2 opacity-70;
+  }
+}
+
+/* Custom animations */
+@keyframes gradient {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+/* Custom scrollbar styles */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Ensure sidebar stays fixed while content scrolls */
+.flex.min-h-screen {
+  position: relative;
+}
+
+/* Smooth animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Prevent content shift when scrollbar appears */
+html {
+  overflow-y: scroll;
+}
+
+/* Better mobile touch targets */
+@media (max-width: 1023px) {
+  button, 
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
